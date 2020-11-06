@@ -1,0 +1,38 @@
+{% extends 'base_admin.html' %}
+
+{% block page_title %}
+        {{page_title}}    
+{% endblock page_title %}  
+
+{% block navbar %} 
+        {% include 'snippets/navbar_staff.html' %}
+{% endblock navbar %}
+
+{% block content %}
+
+<div class="container col-md-6" >
+    <div class="alert alert-primary text-center mt-5" role="alert">
+      <h4>  {{page_title}} </h4>
+    </div>
+      
+    {% for hapus_item in item  %}
+    <div class="text-center">
+        <form method="POST">
+            {% csrf_token %}
+        
+            <p> Материя : {{ hapus_item.judul }}</p>
+            <p>категория : {{hapus_item.kategori}}</p>
+                <p>Автор : {{hapus_item.penulis}}</p>
+                <p>Опубликованный : {{hapus_item.published}}</p>
+                <p>вы уверены, что хотите удалить ??? </p>
+            
+            <input class="btn btn-danger" type="submit" value="Подверждения">
+
+            <a button class="btn btn-info" href="{% url 'kursus:manage' %}">Отмена</button> </a>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock content %}

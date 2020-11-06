@@ -1,0 +1,56 @@
+{% extends 'base_admin.html' %}
+
+
+{% block page_title %}
+    {{page_title}}
+{% endblock page_title %}
+
+{% block navbar %} 
+        {% include 'snippets/navbar_staff.html' %}
+{% endblock navbar %}
+
+
+{% block content %}
+
+<a class="btn btn-primary btn-block mb-2" href="{% url 'kursus:create' %}" role="button">Создать Статья </a>
+
+<!-- {{object_list}} -->
+<table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Но.</th>
+        <th scope="col">Название</th>
+        <th scope="col">Категория</th>
+        <th scope="col">Автор</th>
+        <th scope="col">Настройки</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+  {% for list_materi in daftar_materi %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{list_materi.judul}}</td>
+        <td>{{list_materi.kategori}}</td>
+        <td>{{list_materi.penulis}}</td>
+        <td>   
+            <a href="{% url 'kursus:delete' list_materi.id  %}"> <button type="button" class="btn btn-sm btn-outline-danger mb-1 mt-1">Удалять</button></a>
+
+            <a href="{% url 'kursus:edit' list_materi.id %}">
+            <button type="button" class="btn btn-sm btn-outline-info">Cмена</button></a>
+        </td>
+      </tr>
+  {% endfor %}
+  
+ 
+    
+  
+    </tbody>
+  </table>
+  
+  
+{% endblock content %}
+    
+    
+
+    

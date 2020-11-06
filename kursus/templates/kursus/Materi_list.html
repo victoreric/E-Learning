@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_title %}
+    {{page_title}}
+{% endblock page_title %}
+    
+{% block navbar %} 
+    <h1>kokoksaasda</h1>
+    {% include '/snippets/navbar_anonymous.html' %}
+{% endblock navbar %}
+
+
+{% block category %}
+<!-- user Login -->
+<p>Selamat Datang, {{user}}</p>
+        <a href="{% url 'kursus:login' %}"><button>login</button></a>
+
+        <a href="{% url 'kursus:logout' %}"><button>logout</button></a>
+
+     <!-- {{kategori_list}} -->
+    <div class="list-group mt-1">
+        <span class="list-group-item active">
+            категория :
+        </span>
+        {% for kategori in kategori_list %}
+        <a href="{% url 'kursus:kategori' kategori %}" class="list-group-item list-group-item-action">
+            {{kategori}}
+        </a>
+        {% endfor %}
+      </div>
+
+      tes
+        
+{% endblock category %}
+    
+{% block content %}
+
+
+    <!-- {{object_list}}     -->
+    {% for materi in object_list %}
+    <div class="card">
+    <h5 class="card-header"><a href="{% url 'kursus:detail' materi.id %}">   {{materi.judul}} </a></h5>
+    <div class="card-body">
+      <!-- <h5 class="card-title">Special title treatment</h5> -->
+      <p class="card-text">{{materi.isi | safe | truncatewords:50}}</p>
+      <a href="{% url 'kursus:detail' materi.id %}" class="btn btn-primary">полностью</a>
+    </div>
+
+</div>  
+<br> 
+    {% endfor %}  
+
+  
+{% endblock content %}
+    

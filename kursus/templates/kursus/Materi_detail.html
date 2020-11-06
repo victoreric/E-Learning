@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+    {{page_title}}    
+{% endblock page_title %}
+    
+{% block navbar %} 
+    {% if request.user.is_authenticated %} 
+        {% include 'snippets/navbar_staff.html' %}
+    {% else %} 
+        {% include 'snippets/navbar_anonymous.html' %}
+    {% endif %}
+{% endblock navbar %}
+
+
+
+{% block content %}
+<div class="row">
+  <!-- sisi kiri untuk kategori -->
+  <div class="col-sm-3 mb-5">
+      <!-- {{kategori_list}} -->
+      <div class="list-group">
+          <span class="list-group-item active">
+            категория :
+          </span>
+          <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" href="{% url 'kursus:list' %}"> Все категория 
+            
+          </a>
+          {% for kategori in kategori_list %}
+
+          <a href="{% url 'kursus:kategori' kategori %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+              {{kategori}}
+              
+          </a>
+          {% endfor %}
+        </div>  
+  </div> 
+  <!-- Akhir sisi kiri untuk kategori -->
+
+
+   <!-- sisi kanan untuk isi materi -->
+    <div class="col-sm-9">
+            <div class="container"> 
+              <div class="card ">
+                  <div class="card-header">
+                    <h3>  {{materi.judul}} </h3>
+                  </div>
+                  <div class="card-body">
+                    <blockquote class="blockquote mb-0 text-justify">
+                      <p>{{materi.isi | safe}} </p>
+
+                
+
+                      <footer class="blockquote-footer">категория : {{materi.kategori}}
+                        , <cite title="Source Title">автор : {{materi.penulis}}</cite>
+                        , <cite title="Source Title">опубликованный : {{materi.published | date}}</cite>
+                      , <cite title="Source Title">обновить : {{materi.update}}</cite>  
+                      </footer>
+                    </blockquote>
+
+                  </div>
+                </div>
+            </div>
+     </div>
+</div>
+{% endblock content %}
+    
